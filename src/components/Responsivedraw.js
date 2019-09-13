@@ -15,16 +15,10 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from '@material-ui/core/Button';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
 
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Liscon from '@material-ui/icons/List';
-import Home from '@material-ui/icons/Home';
-import Regcon from '@material-ui/icons/Schedule';
-import Graphcon from '@material-ui/icons/TrendingUp';
-import Predcon from '@material-ui/icons/DoneAllOutlined';
-
-import Table from './components/Table';
+import Table from './Table';
 
 
 const drawerWidth = 240;
@@ -85,7 +79,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function App() {
+export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -115,14 +109,10 @@ export default function App() {
           onClick={handleDrawerOpen}>
           <MenuIcon/>
           </IconButton>
-          <Typography style={{flex: 1}} variant="h6" className={classes.title}>
-            Menu
+          <Typography variant="h6" noWrap>
+            Persistent drawer
           </Typography>
-          <Button color="inherit"
-          >
-          <AccountCircle/>
-          </Button>
-        </Toolbar>       
+        </Toolbar>
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -140,20 +130,22 @@ export default function App() {
         </div>
         <Divider />
         <List>
-          {['Inicio', 'Lista de productos', 'Registro de actividades', 'Graficos','Datos predictivos'].map((text, index) => (
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index === 0 ? <Home/> 
-              : index===1 ? <Liscon/>
-              : index===2 ? <Regcon/>
-              : index===3 ? <Graphcon/>
-              : <Predcon/>}                
-              </ListItemIcon>
-              
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
         <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
       <main
         className={clsx(classes.content, {
